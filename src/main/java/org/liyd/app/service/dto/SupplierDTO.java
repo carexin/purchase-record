@@ -1,6 +1,5 @@
 package org.liyd.app.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.liyd.app.entity.Supplier;
@@ -55,7 +54,7 @@ public class SupplierDTO {
   private static final long serialVersionUID = 1L;
 
   @ApiModelProperty(hidden = true)
-  public Supplier getEntity(){
+  public Supplier getEntity() {
     Supplier supplier = new Supplier();
     supplier.setAddress(this.address);
     supplier.setContacts(this.contacts);

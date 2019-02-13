@@ -1,11 +1,9 @@
 package org.liyd.app.web.rest;
 
-import com.google.common.base.Objects;
-import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.github.pagehelper.PageInfo;
+import org.liyd.app.entity.Supplier;
 import org.liyd.app.service.SupplierService;
-import org.liyd.app.service.dto.SupplierDTO;
+import org.liyd.app.web.rest.vo.SupplierSelectParams;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,17 +17,24 @@ public class SupplierResource {
   }
 
 
+  /**
+   * 保存经销商
+   *
+   * @return
+   */
   @PostMapping("/save")
-  public SupplierDTO insert(@RequestBody SupplierDTO supplierDTO) {
-    return supplierDTO;
+  public Supplier insert(@RequestBody Supplier supplier) {
+    return supplierService.supplierAdd(supplier);
   }
 
-  @ApiOperation(value = "Find pet by Status",
-          notes = "${SomeController.findPetsByStatus.notes}")
+  /**
+   * 查询经销商
+   *
+   * @return
+   */
   @GetMapping("/select")
-  public SupplierDTO select(){
-
-    return null;
+  public PageInfo<Supplier> select(SupplierSelectParams params) {
+    return supplierService.list(params);
   }
 
 }

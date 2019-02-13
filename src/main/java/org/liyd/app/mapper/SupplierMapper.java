@@ -1,9 +1,10 @@
 package org.liyd.app.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import org.liyd.app.entity.Supplier;
-import org.springframework.stereotype.Repository;
+import org.liyd.app.web.rest.vo.SupplierSelectParams;
+
+import java.util.List;
 
 /**
  * @author liyudong
@@ -62,9 +63,6 @@ public interface SupplierMapper {
   /**
    * 根据联系人查询supplier
    *
-   * @param contacts
-   * @return
    */
-  @Select("select * from supplier")
-  Supplier selectByContacts(String contacts);
+  List<Supplier> selectByContacts(SupplierSelectParams supplierSelectParams);
 }
