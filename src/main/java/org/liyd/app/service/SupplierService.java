@@ -25,7 +25,7 @@ public class SupplierService {
    */
   public Supplier supplierAdd(Supplier supplier) {
 
-    // TODO 查询下数据库是否存在这个用户
+    // TODO 查询下数据库是否存在这个进货商
     supplier.setUpdateTime(LocalDateTime.now());
     supplier.setIsActive((byte) 0);
     supplierMapper.insert(supplier);
