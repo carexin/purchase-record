@@ -1,5 +1,5 @@
 CREATE TABLE `supplier` (
-    `supplier_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
     `contacts` varchar(60) NOT NULL DEFAULT '' COMMENT '联系人',
     `phone` varchar(13) DEFAULT '' COMMENT '手机号码',
     `telephone` varchar(13) DEFAULT '' COMMENT '电话号码',
