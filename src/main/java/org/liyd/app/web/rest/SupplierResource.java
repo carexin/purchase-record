@@ -37,4 +37,13 @@ public class SupplierResource {
     return supplierService.list(params);
   }
 
+  /**
+   * todo 更新
+   */
+
+  /**
+   * todo 删除
+   */
+
+
 }

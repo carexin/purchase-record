@@ -32,8 +32,6 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    compile 'org.apache.shiro:shiro-spring-boot-web-starter:1.4.0'
-
     //分页插件
     compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
 
