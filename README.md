@@ -1,5 +1,4 @@
-# purchase-record
-进货管理
+
 
 ## swagger url
 
