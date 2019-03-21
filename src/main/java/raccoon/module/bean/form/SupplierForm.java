@@ -2,6 +2,7 @@ package raccoon.module.bean.form;
 
 import lombok.Builder;
 import lombok.Data;
+import raccoon.module.bean.dto.SupplierDTO;
 import raccoon.module.bean.entity.Supplier;
 
 @Data
@@ -15,13 +16,9 @@ public class SupplierForm {
   private String address;
   private String remarks;
 
-  /**
-   * todo 图方便直接转为entity操作.
-   *
-   * @return
-   */
-  public Supplier getEntity() {
-    return Supplier.builder()
+  public SupplierDTO getDTO() {
+    return SupplierDTO
+            .builder()
             .id(id)
             .contacts(contacts)
             .phone(phone)

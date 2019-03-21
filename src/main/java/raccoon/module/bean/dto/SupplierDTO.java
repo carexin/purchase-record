@@ -1,6 +1,7 @@
 package raccoon.module.bean.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import raccoon.module.bean.entity.Supplier;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
  * @author liyudong
  */
 @Data
+@Builder
 public class SupplierDTO {
   /**
    * 主键id
@@ -67,12 +69,4 @@ public class SupplierDTO {
     return supplier;
   }
 
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
 }

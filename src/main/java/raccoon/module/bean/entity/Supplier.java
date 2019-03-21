@@ -20,4 +20,16 @@ public class Supplier implements Serializable {
   private Byte isActive;
   private LocalDateTime createTime;
   private LocalDateTime updateTime;
+
+  public Supplier getEntity() {
+    return Supplier.builder()
+            .id(id)
+            .contacts(contacts)
+            .phone(phone)
+            .telephone(telephone)
+            .address(address)
+            .remarks(remarks)
+            .build();
+  }
+
 }

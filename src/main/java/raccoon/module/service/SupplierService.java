@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import raccoon.module.bean.SupplierSelectParams;
+import raccoon.module.bean.dto.SupplierDTO;
 import raccoon.module.bean.entity.Supplier;
 import raccoon.module.mapper.SupplierDAO;
 
@@ -20,16 +21,6 @@ public class SupplierService {
   @Autowired
   private SupplierDAO supplierDAO;
 
-  public Supplier supplierAdd(Supplier supplier) {
-
-    // TODO 查询下数据库是否存在这个进货商
-    supplier.setUpdateTime(LocalDateTime.now());
-    supplier.setIsActive((byte) 0);
-    supplierDAO.insert(supplier);
-    return supplier;
-  }
-
-
   /**
    * todo params参数如何传递?
    * 查询supplier
@@ -42,5 +33,14 @@ public class SupplierService {
     //用PageInfo对结果进行包装
     PageInfo page = new PageInfo(list);
     return page;
+  }
+
+  public Integer add(SupplierDTO supplierDTO) {
+
+    Supplier supplier = supplierDTO.getEntity();
+    // TODO 查询下数据库是否存在这个进货商
+    supplier.setUpdateTime(LocalDateTime.now());
+    supplierDAO.insert(supplier);
+    return supplier.getId();
   }
 }

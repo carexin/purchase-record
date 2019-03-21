@@ -35,10 +35,9 @@ public class SupplierResource {
   public ResultVO<Integer> add(@RequestBody SupplierForm supplierForm) {
 
     Map<String, Integer> map = new HashMap<>(1);
-    map.put("supplierId")
-    return ResultVOUtil.success();
-
-    return supplierService.supplierAdd(supplierForm);
+    Integer supplierId = supplierService.add(supplierForm.getDTO());
+    map.put("supplierId", supplierId);
+    return ResultVOUtil.success(map);
   }
 
   @GetMapping("/select")
