@@ -1,0 +1,14 @@
+server:
+  port: 9005
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: purchase_record
+    password: purchase_record
+    url: jdbc:mysql://localhost:9001/purchase_record?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
