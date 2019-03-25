@@ -1,57 +1,75 @@
 package raccoon.module.controller;
 
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import raccoon.module.bean.SupplierSelectParams;
+import raccoon.module.bean.dto.SupplierDTO;
 import raccoon.module.bean.entity.Supplier;
 import raccoon.module.bean.form.SupplierForm;
 import raccoon.module.service.SupplierService;
 import raccoon.utils.ResultVO;
 import raccoon.utils.ResultVOUtil;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/supplier")
 @Slf4j
+@Api(tags = {"供货商-操作接口"})
 public class SupplierResource {
-
-  /**
-   * 之所以不使用构造方法注入, 只是因为感觉不整齐.
-   */
 
   @Autowired
   private SupplierService supplierService;
 
-  @PostMapping("/save")
-  public Supplier insert(@RequestBody Supplier supplier) {
-    return supplierService.supplierAdd(supplier);
-  }
-
   @PostMapping
-  public ResultVO<Integer> add(@RequestBody SupplierForm supplierForm) {
+  @ApiOperation(value = "新增供货商", notes = "不要传id参数")
+  public ResultVO<Integer> add(@RequestBody @ApiParam(
+          name = "供应商form",
+          value = "传入json格式",
+          required = true) SupplierForm supplierForm) {
 
-    Map<String, Integer> map = new HashMap<>(1);
-    Integer supplierId = supplierService.add(supplierForm.getDTO());
-    map.put("supplierId", supplierId);
-    return ResultVOUtil.success(map);
-  }
-
-  @GetMapping("/select")
-  public PageInfo<Supplier> select(SupplierSelectParams params) {
-    return supplierService.list(params);
+    supplierForm.setId(null);
+    SupplierDTO supplierDTO = new SupplierDTO();
+    BeanUtils.copyProperties(supplierForm, supplierDTO);
+    Integer supplierId = supplierService.add(supplierDTO);
+    return ResultVOUtil.success(supplierId);
   }
 
   /**
-   * todo 更新
+   * 分页查询
+   *
+   * @param params
+   * @return
    */
+  @GetMapping
+  @ApiOperation(value = "分页查询supplier", notes = "默认显示10条")
+  public PageInfo<Supplier> list(SupplierSelectParams params) {
+    PageInfo<Supplier> result = supplierService.list(params);
+    return result;
+  }
+
 
   /**
-   * todo 删除
+   * 更新供货商
+   *
+   * @param supplierForm
+   * @return
    */
+  @PutMapping
+  @ApiOperation(value = "更新supplier", notes = "根据id更新")
+  public ResultVO<Integer> update(@RequestBody SupplierForm supplierForm) {
+
+    SupplierDTO supplierDTO = new SupplierDTO();
+    BeanUtils.copyProperties(supplierForm, supplierDTO);
+
+    Integer result = supplierService.update(supplierDTO);
+    return ResultVOUtil.success(result);
+
+  }
 
 
 }

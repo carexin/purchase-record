@@ -1,6 +1,5 @@
 package raccoon.module.bean.entity;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,7 +7,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
 public class OrderDetail implements Serializable {
 
   private static final long serialVersionUID = 1L;

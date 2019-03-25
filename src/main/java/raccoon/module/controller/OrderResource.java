@@ -1,15 +1,25 @@
 package raccoon.module.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import raccoon.utils.ResultVO;
+import raccoon.module.bean.dto.OrderDTO;
 import raccoon.module.bean.form.OrderForm;
+import raccoon.module.service.OrderService;
+import raccoon.utils.ResultVO;
 import raccoon.utils.ResultVOUtil;
 
 @RestController
 @RequestMapping("/api/order")
 public class OrderResource {
+
+  @Autowired
+  private OrderService orderService;
 
   /**
    * 添加order记录
@@ -19,11 +29,17 @@ public class OrderResource {
    * 【OrderDetail明细】 名称、数量、单价、总价
    */
   @PostMapping
-  public ResultVO add(OrderForm orderForm) {
+  @ApiOperation(value = "添加订单", notes = "添加订单时指定具体商品, 订单和商品将同时添加")
+  public ResultVO<String> add(@RequestBody @ApiParam(
+          name = "订单form",
+          value = "传入json格式",
+          required = true) OrderForm orderForm) {
 
+    OrderDTO dto = new OrderDTO();
+    BeanUtils.copyProperties(orderForm, dto);
+    String orderId = orderService.add(dto);
 
-    //添加成功, 返回保存的这条数据的主键.
-    return ResultVOUtil.success();
+    return ResultVOUtil.success(orderId);
   }
 
 

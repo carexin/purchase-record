@@ -2,6 +2,7 @@ package raccoon.module.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,10 +38,20 @@ public class SupplierService {
 
   public Integer add(SupplierDTO supplierDTO) {
 
-    Supplier supplier = supplierDTO.getEntity();
+    Supplier supplier = new Supplier();
+    BeanUtils.copyProperties(supplierDTO, supplier);
+
     // TODO 查询下数据库是否存在这个进货商
+    supplier.setCreateTime(LocalDateTime.now());
     supplier.setUpdateTime(LocalDateTime.now());
-    supplierDAO.insert(supplier);
+    Integer result = supplierDAO.insert(supplier);
     return supplier.getId();
+  }
+
+  public Integer update(SupplierDTO supplierDTO) {
+    Supplier supplier = new Supplier();
+    BeanUtils.copyProperties(supplierDTO, supplier);
+    Integer result = supplierDAO.updateByPrimaryKeySelective(supplier);
+    return result;
   }
 }
