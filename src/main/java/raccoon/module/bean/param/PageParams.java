@@ -1,4 +1,4 @@
-package raccoon.utils;
+package raccoon.module.bean.param;
 
 import lombok.Data;
 

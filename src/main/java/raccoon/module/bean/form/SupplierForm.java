@@ -8,7 +8,7 @@ import lombok.Data;
 @ApiModel(value = "SupplierForm", description = "供货商form表单")
 public class SupplierForm {
 
-  @ApiModelProperty(value = "主键id, 添加时不需要给, 更新时需要传入id")
+  @ApiModelProperty(value = "主键id, 添加时不需要给, 更新时需要传入id", example = "0")
   private Integer id;
 
   @ApiModelProperty(value = "联络人", name = "contacts", example = "李逍遥")
