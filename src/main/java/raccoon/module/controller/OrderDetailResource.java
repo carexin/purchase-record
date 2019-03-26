@@ -1,26 +1,52 @@
 package raccoon.module.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import raccoon.module.bean.dto.OrderDTO;
+import raccoon.module.bean.entity.OrderDetail;
+import raccoon.module.bean.param.OrderDetailNoPageParams;
+import raccoon.module.service.OrderDetailService;
+import raccoon.utils.ResultVO;
+import raccoon.utils.ResultVOUtil;
 
-/**
- * 动词+名词的形式 动词指的http方法GET, POST等
- *
- * GET /devices/ID/images：获取某个设备的所有图片
- * GET /devices/ID/images/ID：获取某个设备的某张图片（我们不提供改方法，有人认为没有意义的）
- */
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/order-detail")
 @Slf4j
+@Api(tags = {"订单条目-接口"})
 public class OrderDetailResource {
 
-  @GetMapping
-  public String demo(){
-    return "123123";
+  @Autowired
+  private OrderDetailService orderDetailService;
+
+  @GetMapping("/no-page")
+  @ApiOperation(value = "查出符合条件的所有detail", notes = "不分页")
+  public ResultVO<List<OrderDetail>> listByOrderId(OrderDetailNoPageParams params) {
+    if(null == params.getOrderId()) {
+      return ResultVOUtil.error(10000,"至少要传入orderId");
+    }
+    List<OrderDetail> orders = orderDetailService.listNoPage(params);
+    return ResultVOUtil.success(orders);
   }
 
+  @DeleteMapping("/{detailId}")
+  @ApiOperation(value = "删除一条detail", notes = "直接删除")
+  public ResultVO<OrderDTO> delete(@PathVariable String detailId) {
 
+    // todo 待实现
+    return ResultVOUtil.success();
+  }
+
+//  @GetMapping
+//  @ApiOperation(value = "分页查询detail", notes = "分页")
+//  public ResultVO<OrderDTO> list() {
+//
+//    //todo 待实现
+//    return ResultVOUtil.success();
+//  }
 
 }

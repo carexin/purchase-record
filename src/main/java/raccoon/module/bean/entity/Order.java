@@ -14,7 +14,7 @@ public class Order implements Serializable {
   private BigDecimal freight;
   private BigDecimal totalPrice;
   private Byte orderStatus;
-  private String supplierId;
+  private Integer supplierId;
   private LocalDateTime createTime;
   private LocalDateTime updateTime;
   private String remarks;

@@ -1,7 +1,11 @@
 package raccoon.module.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import raccoon.module.bean.entity.Order;
 import raccoon.module.bean.entity.OrderDetail;
+import raccoon.module.bean.param.OrderDetailNoPageParams;
+
+import java.util.List;
 
 @Mapper
 public interface OrderDetailDAO {
@@ -16,4 +20,6 @@ public interface OrderDetailDAO {
   int updateByPrimaryKeySelective(OrderDetail record);
 
   int updateByPrimaryKey(OrderDetail record);
+
+  List<OrderDetail> listByParams(OrderDetailNoPageParams params);
 }

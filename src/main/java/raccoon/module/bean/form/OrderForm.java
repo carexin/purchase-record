@@ -24,7 +24,7 @@ public class OrderForm {
   private Byte orderStatus;
 
   @ApiModelProperty(value = "经销商id", example = "1")
-  private String supplierId;
+  private Integer supplierId;
 
   @ApiModelProperty(value = "备注", example = "油价上涨, 导致运费变高.")
   private String remarks;

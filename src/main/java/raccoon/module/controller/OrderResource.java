@@ -1,33 +1,35 @@
 package raccoon.module.controller;
 
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import raccoon.module.bean.dto.OrderDTO;
+import raccoon.module.bean.dto.OrderDetailDTO;
+import raccoon.module.bean.entity.Order;
+import raccoon.module.bean.form.OrderDetailForm;
 import raccoon.module.bean.form.OrderForm;
+import raccoon.module.bean.param.OrderParam;
 import raccoon.module.service.OrderService;
 import raccoon.utils.ResultVO;
 import raccoon.utils.ResultVOUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/order")
+@Slf4j
+@Api(tags = {"订单-接口"})
 public class OrderResource {
 
   @Autowired
   private OrderService orderService;
 
-  /**
-   * 添加order记录
-   * <p>
-   * order通过supplier_id与supplier关联
-   * 可通过supplier_id 查出在此supplier下订购了多少次
-   * 【OrderDetail明细】 名称、数量、单价、总价
-   */
   @PostMapping
   @ApiOperation(value = "添加订单", notes = "添加订单时指定具体商品, 订单和商品将同时添加")
   public ResultVO<String> add(@RequestBody @ApiParam(
@@ -35,26 +37,69 @@ public class OrderResource {
           value = "传入json格式",
           required = true) OrderForm orderForm) {
 
+    log.info("OrderResource.add() " + orderForm.toString());
+
+    //todo 优化form转dto
     OrderDTO dto = new OrderDTO();
     BeanUtils.copyProperties(orderForm, dto);
+
+    List<OrderDetailDTO> detailDTOS = new ArrayList<>();
+
+    for (OrderDetailForm orderDetailForm : orderForm.getOrderDetailFormList()) {
+      OrderDetailDTO detailDTO = new OrderDetailDTO();
+      BeanUtils.copyProperties(orderDetailForm, detailDTO);
+      detailDTOS.add(detailDTO);
+    }
+
+    dto.setOrderDetailDTOList(detailDTOS);
+
     String orderId = orderService.add(dto);
 
     return ResultVOUtil.success(orderId);
   }
 
+  @PutMapping
+  @ApiOperation(value = "更新订单(包含detail)", notes = "orderId是更新时的必填项, detailId有则为更新, 否则为新增, " +
+          "此更新不能用于删除detail, 删除detail请调用单独的方法.")
+  public ResultVO<String> update(@RequestBody @ApiParam(
+          name = "订单form",
+          value = "传入json格式",
+          required = true) OrderForm orderForm) {
 
-  /**
-   * todo 订单查询
-   * 可按照各种参数进行查询
-   */
+    log.info("OrderResource.update() " + orderForm.toString());
+    OrderDTO dto = new OrderDTO();
+    BeanUtils.copyProperties(orderForm, dto);
 
-  /**
-   * todo 获取某个具体的order
-   */
+    List<OrderDetailDTO> detailDTOS = new ArrayList<>();
 
-  /**
-   * todo 获取某个具体order下的order_detail list
-   */
+    for (OrderDetailForm orderDetailForm : orderForm.getOrderDetailFormList()) {
+      OrderDetailDTO detailDTO = new OrderDetailDTO();
+      BeanUtils.copyProperties(orderDetailForm, detailDTO);
+      detailDTOS.add(detailDTO);
+    }
+
+    dto.setOrderDetailDTOList(detailDTOS);
+
+    String orderId = orderService.update(dto);
+
+    return ResultVOUtil.success(orderId);
+  }
+
+  @GetMapping
+  @ApiOperation(value = "分页查询supplier", notes = "默认显示10条")
+  public ResultVO<PageInfo<Order>> list(OrderParam orderParam) {
+    PageInfo<Order> orderPageInfo = orderService.list(orderParam);
+    return ResultVOUtil.success(orderPageInfo);
+  }
+
+  @GetMapping("/{orderId}")
+  public ResultVO<Order> getOrder(@PathVariable @ApiParam(name = "订单id",
+          value = "string",
+          required = true) String orderId) {
+    Order order = orderService.getOrderById(orderId);
+
+    return ResultVOUtil.success(order);
+  }
 
 
 }

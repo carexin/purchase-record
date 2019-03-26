@@ -19,7 +19,7 @@ import raccoon.utils.ResultVOUtil;
 @RestController
 @RequestMapping("/api/supplier")
 @Slf4j
-@Api(tags = {"供货商-操作接口"})
+@Api(tags = {"供货商-接口"})
 public class SupplierResource {
 
   @Autowired
@@ -39,12 +39,6 @@ public class SupplierResource {
     return ResultVOUtil.success(supplierId);
   }
 
-  /**
-   * 分页查询
-   *
-   * @param params
-   * @return
-   */
   @GetMapping
   @ApiOperation(value = "分页查询supplier", notes = "默认显示10条")
   public PageInfo<Supplier> list(SupplierSelectParams params) {
@@ -52,23 +46,34 @@ public class SupplierResource {
     return result;
   }
 
-
-  /**
-   * 更新供货商
-   *
-   * @param supplierForm
-   * @return
-   */
   @PutMapping
   @ApiOperation(value = "更新supplier", notes = "根据id更新")
   public ResultVO<Integer> update(@RequestBody SupplierForm supplierForm) {
 
+    if (null == supplierForm.getId()) {
+      return ResultVOUtil.error(10000, "缺少主键");
+    }
     SupplierDTO supplierDTO = new SupplierDTO();
     BeanUtils.copyProperties(supplierForm, supplierDTO);
 
     Integer result = supplierService.update(supplierDTO);
     return ResultVOUtil.success(result);
 
+  }
+
+
+  @DeleteMapping("/{supplierId}")
+  @ApiOperation(value = "删除一个代理商", notes = "根据id删除, 并删除与之关联的所有order")
+  public ResultVO<Integer> delete(@PathVariable @ApiParam(name = "supplierId",
+          value = "int",
+          required = true) Integer supplierId) {
+
+    // todo 参数校验
+    // todo 删除前的校验, 数据库查出此记录, 有责删除, 无则抛出异常
+    log.info("supplier resource delete(): supplierId = {}", supplierId);
+
+    Integer result = supplierService.deleteById(supplierId);
+    return ResultVOUtil.success(result);
   }
 
 

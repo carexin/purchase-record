@@ -36,6 +36,7 @@
         from supplier
         where id = #{id,jdbcType=INTEGER}
     </delete>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="raccoon.module.bean.entity.Supplier">
         insert into supplier (id, contacts, phone,
                               telephone, address, remarks,

@@ -2,7 +2,7 @@ package raccoon.module.bean;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import raccoon.utils.PageParams;
+import raccoon.module.bean.param.PageParams;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

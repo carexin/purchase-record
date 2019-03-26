@@ -1,153 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="raccoon.module.mapper.OrderDetailDAO">
-  <resultMap id="BaseResultMap" type="raccoon.module.bean.entity.OrderDetail">
-    <id column="detail_id" jdbcType="VARCHAR" property="detailId" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="amount" jdbcType="DECIMAL" property="amount" />
-    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
-    <result column="detail_price" jdbcType="DECIMAL" property="detailPrice" />
-    <result column="detail_status" jdbcType="TINYINT" property="detailStatus" />
-    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    detail_id, goods_name, amount, unit_price, detail_price, detail_status, order_id, 
+    <resultMap id="BaseResultMap" type="raccoon.module.bean.entity.OrderDetail">
+        <id column="detail_id" jdbcType="VARCHAR" property="detailId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="detail_price" jdbcType="DECIMAL" property="detailPrice"/>
+        <result column="detail_status" jdbcType="TINYINT" property="detailStatus"/>
+        <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        detail_id, goods_name, amount, unit_price, detail_price, detail_status, order_id,
     create_time, update_time, remarks
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from order_detail
-    where detail_id = #{detailId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from order_detail
-    where detail_id = #{detailId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="raccoon.module.bean.entity.OrderDetail">
-    insert into order_detail (detail_id, goods_name, amount, 
-      unit_price, detail_price, detail_status, 
-      order_id, create_time, update_time, 
-      remarks)
-    values (#{detailId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
-      #{unitPrice,jdbcType=DECIMAL}, #{detailPrice,jdbcType=DECIMAL}, #{detailStatus,jdbcType=TINYINT}, 
-      #{orderId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{remarks,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="raccoon.module.bean.entity.OrderDetail">
-    insert into order_detail
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="detailId != null">
-        detail_id,
-      </if>
-      <if test="goodsName != null">
-        goods_name,
-      </if>
-      <if test="amount != null">
-        amount,
-      </if>
-      <if test="unitPrice != null">
-        unit_price,
-      </if>
-      <if test="detailPrice != null">
-        detail_price,
-      </if>
-      <if test="detailStatus != null">
-        detail_status,
-      </if>
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="detailId != null">
-        #{detailId,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsName != null">
-        #{goodsName,jdbcType=VARCHAR},
-      </if>
-      <if test="amount != null">
-        #{amount,jdbcType=DECIMAL},
-      </if>
-      <if test="unitPrice != null">
-        #{unitPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="detailPrice != null">
-        #{detailPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="detailStatus != null">
-        #{detailStatus,jdbcType=TINYINT},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="raccoon.module.bean.entity.OrderDetail">
-    update order_detail
-    <set>
-      <if test="goodsName != null">
-        goods_name = #{goodsName,jdbcType=VARCHAR},
-      </if>
-      <if test="amount != null">
-        amount = #{amount,jdbcType=DECIMAL},
-      </if>
-      <if test="unitPrice != null">
-        unit_price = #{unitPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="detailPrice != null">
-        detail_price = #{detailPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="detailStatus != null">
-        detail_status = #{detailStatus,jdbcType=TINYINT},
-      </if>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where detail_id = #{detailId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="raccoon.module.bean.entity.OrderDetail">
-    update order_detail
-    set goods_name = #{goodsName,jdbcType=VARCHAR},
-      amount = #{amount,jdbcType=DECIMAL},
-      unit_price = #{unitPrice,jdbcType=DECIMAL},
-      detail_price = #{detailPrice,jdbcType=DECIMAL},
-      detail_status = #{detailStatus,jdbcType=TINYINT},
-      order_id = #{orderId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=VARCHAR}
-    where detail_id = #{detailId,jdbcType=VARCHAR}
-  </update>
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_detail
+        where detail_id = #{detailId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="listByParams" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_detail
+        <where>
+            <if test="orderId != null">
+                order_id = #{orderId}
+            </if>
+            <if test="goodsName != null">
+                goods_name like CONCAT('%', #{goodsName}, '%')
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from order_detail
+        where detail_id = #{detailId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="raccoon.module.bean.entity.OrderDetail">
+        insert into order_detail (detail_id, goods_name, amount,
+                                  unit_price, detail_price, detail_status,
+                                  order_id, create_time, update_time,
+                                  remarks)
+        values (#{detailId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL},
+                #{unitPrice,jdbcType=DECIMAL}, #{detailPrice,jdbcType=DECIMAL}, #{detailStatus,jdbcType=TINYINT},
+                #{orderId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+                #{remarks,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="raccoon.module.bean.entity.OrderDetail">
+        insert into order_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">
+                detail_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="unitPrice != null">
+                unit_price,
+            </if>
+            <if test="detailPrice != null">
+                detail_price,
+            </if>
+            <if test="detailStatus != null">
+                detail_status,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">
+                #{detailId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="unitPrice != null">
+                #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="detailPrice != null">
+                #{detailPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="detailStatus != null">
+                #{detailStatus,jdbcType=TINYINT},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="raccoon.module.bean.entity.OrderDetail">
+        update order_detail
+        <set>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="unitPrice != null">
+                unit_price = #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="detailPrice != null">
+                detail_price = #{detailPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="detailStatus != null">
+                detail_status = #{detailStatus,jdbcType=TINYINT},
+            </if>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where detail_id = #{detailId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="raccoon.module.bean.entity.OrderDetail">
+        update order_detail
+        set goods_name    = #{goodsName,jdbcType=VARCHAR},
+            amount        = #{amount,jdbcType=DECIMAL},
+            unit_price    = #{unitPrice,jdbcType=DECIMAL},
+            detail_price  = #{detailPrice,jdbcType=DECIMAL},
+            detail_status = #{detailStatus,jdbcType=TINYINT},
+            order_id      = #{orderId,jdbcType=VARCHAR},
+            create_time   = #{createTime,jdbcType=TIMESTAMP},
+            update_time   = #{updateTime,jdbcType=TIMESTAMP},
+            remarks       = #{remarks,jdbcType=VARCHAR}
+        where detail_id = #{detailId,jdbcType=VARCHAR}
+    </update>
 </mapper>

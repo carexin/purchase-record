@@ -17,7 +17,7 @@ create table `order`(
    `freight` decimal(8,2) not null comment '运费(元)',
    `total_price` decimal(8,2) not null comment '总价(元)',
    `order_status` tinyint(3) not null default '0' comment '订单状态, 0有效, 1无效',
-   `supplier_id` varchar(32) not null comment 'supplier id',
+   `supplier_id` int(11) not null comment 'supplier id',
    `create_time` timestamp not null default current_timestamp comment '创建时间',
    `update_time` timestamp not null default current_timestamp on update current_timestamp comment '修改时间',
    `remarks` varchar(255) DEFAULT '' COMMENT '备注',
