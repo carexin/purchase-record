@@ -1,1 +1,1 @@
-export const api = process.env.REACT_APP_RECORDS_API_URL || "/apidev-/supplier"
+export const api = process.env.REACT_APP_RECORDS_API_URL || "/api/supplier"

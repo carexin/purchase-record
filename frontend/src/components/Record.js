@@ -21,9 +21,9 @@ class Record extends React.Component {
           <td>{this.props.telephone}</td>
           <td>{this.props.address}</td>
           <td>{this.props.remarks}</td>
-          <td>{this.props.isActive}</td>
-          <td>{this.props.createTime}</td>
-          <td>{this.props.updateTime}</td>
+          {/*<td>{this.props.isActive}</td>*/}
+          {/*<td>{this.props.createTime}</td>*/}
+          {/*<td>{this.props.updateTime}</td>*/}
         </tr>
     )
   }
